@@ -1,0 +1,44 @@
+[2024-08-14T01:36:24.695+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-08-14T01:36:24.722+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: reddit_etl_pipeline.reddit_data_extraction manual__2024-08-14T01:36:23.299627+00:00 [queued]>
+[2024-08-14T01:36:24.733+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: reddit_etl_pipeline.reddit_data_extraction manual__2024-08-14T01:36:23.299627+00:00 [queued]>
+[2024-08-14T01:36:24.734+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-08-14T01:36:24.749+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): reddit_data_extraction> on 2024-08-14 01:36:23.299627+00:00
+[2024-08-14T01:36:24.755+0000] {standard_task_runner.py:64} INFO - Started process 57 to run task
+[2024-08-14T01:36:24.763+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'reddit_etl_pipeline', 'reddit_data_extraction', 'manual__2024-08-14T01:36:23.299627+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/rdt_dags.py', '--cfg-path', '/tmp/tmpyuacpp5y']
+[2024-08-14T01:36:24.765+0000] {standard_task_runner.py:91} INFO - Job 5: Subtask reddit_data_extraction
+[2024-08-14T01:36:24.822+0000] {task_command.py:426} INFO - Running <TaskInstance: reddit_etl_pipeline.reddit_data_extraction manual__2024-08-14T01:36:23.299627+00:00 [running]> on host 3dd0aebc6153
+[2024-08-14T01:36:24.943+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='ROmin Katre' AIRFLOW_CTX_DAG_ID='reddit_etl_pipeline' AIRFLOW_CTX_TASK_ID='reddit_data_extraction' AIRFLOW_CTX_EXECUTION_DATE='2024-08-14T01:36:23.299627+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-08-14T01:36:23.299627+00:00'
+[2024-08-14T01:36:24.963+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-08-14T01:36:24.999+0000] {logging_mixin.py:188} INFO - Connected to Rddit successfully
+[2024-08-14T01:36:25.686+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-08-14T01:36:25.687+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.9/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.9/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.9/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+  File "/home/airflow/.local/lib/python3.9/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.9/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/pipelines/reddit_pipeline.py", line 14, in reddit_pipeline
+    load_df_to_csv(post_df, OUTPUT_PATH)
+  File "/opt/airflow/etls/reddit_etl.py", line 47, in load_df_to_csv
+    data.to_csv(path, index = False)
+  File "/home/airflow/.local/lib/python3.9/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "/home/airflow/.local/lib/python3.9/site-packages/pandas/core/generic.py", line 3967, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "/home/airflow/.local/lib/python3.9/site-packages/pandas/io/formats/format.py", line 1014, in to_csv
+    csv_formatter.save()
+  File "/home/airflow/.local/lib/python3.9/site-packages/pandas/io/formats/csvs.py", line 251, in save
+    with get_handle(
+  File "/home/airflow/.local/lib/python3.9/site-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+IsADirectoryError: [Errno 21] Is a directory: '/opt/airflow/data/output'
+[2024-08-14T01:36:25.716+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=reddit_etl_pipeline, task_id=reddit_data_extraction, run_id=manual__2024-08-14T01:36:23.299627+00:00, execution_date=20240814T013623, start_date=20240814T013624, end_date=20240814T013625
+[2024-08-14T01:36:25.728+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 5 for task reddit_data_extraction ([Errno 21] Is a directory: '/opt/airflow/data/output'; 57)
+[2024-08-14T01:36:25.776+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-08-14T01:36:25.788+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
